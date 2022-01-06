@@ -86,5 +86,6 @@ def ShipEnd(pont:int, name:str):
         if van == False:
                 newuser = {"nev":name, "pontja": pont}
                 data.append(newuser)
-        json.dump(data, open("score.json"))
+        with open("score.json", "w",  encoding="utf-8") as f:
+    		json.dump(data, f)
         exit()
