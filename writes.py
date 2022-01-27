@@ -55,7 +55,6 @@ def Stats():
         print("")
         Behuzas()
         input("Tovább...")
-        main.main()
 
 def WriteInFile(pont:int, name:str):
         """
@@ -103,4 +102,3 @@ def ShipEnd(pont:int, name:str):
         Behuzas()
         input("Tovább...")
         WriteInFile(pont, name)
-        main.main()
