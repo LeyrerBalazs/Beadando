@@ -21,6 +21,8 @@ def main():
                 elif valasz == "2":
                         writes.Stats()
                 elif valasz == "3":
+                        exit()
+                else:
                         os.system("clear")
 
 if __name__ == "__main__":
