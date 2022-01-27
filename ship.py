@@ -34,7 +34,7 @@ def Makeline():
                         liner += "\u001b[34m\u001b[44mV\u001b[0m"
         return int(fail), str(liner)
 
-def Test(pos:int, lines:dict, pont:int, name:str) -> int:
+def Test(pos:int, lines:dict, pont:int, name:str) -> tuple:
         """
                 Ez figyeli, hogy a játékos belmegy-e az akadálybam illetve, hogy kimegye a játékterületről.
                 pos ("Pozició") (int) értékét kapja meg és
@@ -43,12 +43,14 @@ def Test(pos:int, lines:dict, pont:int, name:str) -> int:
                 ellenőrzés céljából
                 Visszaadja a műveletek elvégzését követően a pont változó értékét (int)-ben.
         """
+        ciklusle = False
         if pos < 5 or pos > 44 or pos == lines["0f"]:
                 time.sleep(1)
                 writes.ShipEnd(pont, name)
+                ciklusle = True
         else:
                 pont += 1
-        return pont
+        return pont, ciklusle
 
 def Makeline2(pos:int, lines:dict, line):
         """
@@ -69,13 +71,11 @@ def Makeline2(pos:int, lines:dict, line):
         print(line)
 
 def ClearRows(liner:str) -> str:
-	"""
-		Legenerálja az akadálymentes sort
-
-		liner (str) felhasználásával.
-
-		Visszaadja a liner módosított változatát.
-	"""
+        """
+                Legenerálja az akadálymentes sort
+                liner (str) felhasználásával.
+                Visszaadja a liner módosított változatát.
+        """
         for i in range(50):
                 if i < 5:
                         liner += "\u001b[32m\u001b[42mF\u001b[0m"
@@ -100,7 +100,6 @@ def Game(name:str):
                 os.system("clear")
                 writes.Behuzas()
                 print("\n\nJátékos: " + name + "   Pont:" + str(pont) + "\n")
-                int(pont)
                 pos = CharIn(pos)
                 writes.Behuzas()
                 Makeline2(pos, lines, line)
@@ -122,7 +121,9 @@ def Game(name:str):
                                 writes.Behuzas()
                                 print(lines[str(i)])
                 pos = CharIn(pos)
-                pont = Test(pos, lines, pont, name)
+                pont, ciklusle = Test(pos, lines, pont, name)
+                if ciklusle == True:
+                        break
                 for i in range(0,10):
                         time.sleep(0.025)
                         pos = CharIn(pos)
